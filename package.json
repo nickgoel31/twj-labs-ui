@@ -6,8 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
-    "types:check": "fumadocs-mdx && tsc --noEmit",
-    "postinstall": "fumadocs-mdx"
+    "types:check": "npx fumadocs-mdx && tsc --noEmit",
+    "postinstall": "npx fumadocs-mdx"
   },
   "dependencies": {
     "clsx": "^2.1.1",
