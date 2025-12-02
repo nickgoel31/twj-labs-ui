@@ -12,7 +12,7 @@ interface DropdownContextType {
   closeMenu: () => void;
   theme: Theme;
   align: 'left' | 'right';
-  menuRef: React.RefObject<HTMLDivElement>;
+  menuRef: React.RefObject<HTMLDivElement | null>;
   menuVariants: any; // Using 'any' for Framer Motion types simplification
   getTransition: () => any;
   themeClass: string;
@@ -112,13 +112,18 @@ export const DropdownMenu = ({
 // --- SUB-COMPONENTS ---
 
 interface DropdownMenuTriggerProps {
-  children: ReactNode;
+  children: React.ReactElement<{ onClick?: () => void }>;
 }
 
 // Allows any element (like your Button) to act as the trigger
 export const DropdownMenuTrigger = ({ children }: DropdownMenuTriggerProps) => {
   const { isOpen, setIsOpen } = useDropdownMenu();
-  return React.cloneElement(children as React.ReactElement, {
+
+  if (!React.isValidElement(children)) {
+    throw new Error("DropdownMenuTrigger expects a single React element.");
+  }
+
+  return React.cloneElement(children, {
     onClick: () => setIsOpen(!isOpen),
   });
 };

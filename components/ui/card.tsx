@@ -22,7 +22,10 @@ export const Card = ({ theme, children }: CardProps) => {
   const validatedChildren = React.Children.map(children, (child) => {
     if (!React.isValidElement(child)) return child;
 
-    const childName = (child.type as any).displayName;
+    // ensure the child is typed with an optional theme prop so we can inject it
+    const element = child as React.ReactElement<{ theme?: Theme }>;
+
+    const childName = (element.type as any).displayName;
 
     if (!allowed.includes(childName)) {
       console.warn(
@@ -32,7 +35,7 @@ export const Card = ({ theme, children }: CardProps) => {
     }
 
     // inject theme into children
-    return React.cloneElement(child, { theme });
+    return React.cloneElement(element, { theme });
   });
 
   return (
