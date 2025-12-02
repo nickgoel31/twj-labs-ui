@@ -1,13 +1,12 @@
 {
-  "name": ".",
-  "version": "0.0.0",
+  "name": "twjuidocs",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "next build",
     "dev": "next dev",
     "start": "next start",
-    "types:check": "npx fumadocs-mdx && tsc --noEmit",
-    "postinstall": "npx fumadocs-mdx"
+    "types:check": "fumadocs-mdx && tsc --noEmit"
   },
   "dependencies": {
     "clsx": "^2.1.1",
