@@ -1,0 +1,21 @@
+---
+title: Components
+description: Your first document
+---
+
+import { getPageTreePeers } from 'fumadocs-core/page-tree';
+import { source } from '@/lib/source';
+
+
+Welcome to the components page — the place where UI elements come to flex. If you're here to learn, observe closely. If you're here to copy… well, try to keep up.
+
+## Components
+
+<Cards>
+  {getPageTreePeers(source.pageTree, '/docs/components').map((peer) => (
+    <Card key={peer.url} title={peer.name} href={peer.url}>
+      {peer.description}
+    </Card>
+  ))}
+  
+</Cards>

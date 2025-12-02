@@ -1,0 +1,59 @@
+---
+title: Navbar
+description: Button Component, the basic of them all
+---
+
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+You're reading the Button docs because you deserve the best — or you're pretending to. Either way, this component delivers.
+
+TL;DR: Use \<Button> when you want something that looks smart, acts fast, and outclasses everything else on the page.
+
+
+## Installation
+
+if you're using twjlabs/ui cli, it should be pretty easy for you
+
+<Tabs items={['npm','pnpm']} defaultIndex={1}>
+  <Tab value="npm">
+  ```bash
+npx @twjlabs/ui add button
+  ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm add @twjlabs/ui button
+    ```
+  </Tab>
+</Tabs>
+
+## Usage
+Import the Button component and use it in your React application like so:
+
+```tsx
+import { Button } from 'fumadocs-ui/components/button';
+
+function App() {
+  return (
+    <Button onClick={() => alert('Button clicked!')}>
+      Click Me
+    </Button>
+  );
+}
+```
+
+## Props
+
+The Button component accepts the following props:
+
+<TypeTable
+  type={{
+    percentage: {
+      description:
+        'The percentage of scroll position to display the roll button',
+      type: 'number',
+      default: 0.2,
+    },
+  }}
+/>

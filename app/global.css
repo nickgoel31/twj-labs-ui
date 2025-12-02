@@ -1,0 +1,172 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Lora:ital,wght@0,400..700&family=Manrope:wght@200..800&family=Nunito:ital,wght@0,200..1000&family=Orbitron:wght@400..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+
+@theme {
+  /* 1. Map Tailwind utilities to CSS variables */
+  
+  /* Usage: bg-primary, text-primary */
+  --color-primary: var(--color-primary);
+  
+  
+  /* Usage: bg-background, text-foreground (Standard Shadcn naming) */
+  --color-background: var(--color-background);
+  
+  --color-foreground: var(--color-foreground);
+ 
+
+  --color-gradient-one: var(--color-gradient-one);
+  --color-gradient-two: var(--color-gradient-two);
+  --color-gradient-three: var(--color-gradient-three);
+
+  /* Usage: bg-gr-three */
+  --color-gr-three: var(--color-gr-three);
+  
+  /* Usage: bg-surface, text-muted */
+  --color-surface: var(--color-surface);
+  --color-muted: var(--color-muted);
+
+  /* Usage: rounded-theme */
+  --radius-theme: var(--radius-theme); 
+
+  /* Usage: font-theme (This will be our main dynamic font) */
+  --font-theme: var(--font-family);
+  
+  /* 2. Keep specific fonts if you need them as standalone utilities */
+  --font-modern: 'Manrope', sans-serif;
+  --font-elegant: 'Lora', serif;
+  --font-futuristic: 'Orbitron', sans-serif;
+  --font-playful: 'Fredoka', sans-serif;
+  --font-brutalist: 'Roboto Condensed', sans-serif;
+  --font-organic: 'Nunito', sans-serif;
+
+
+  /* DARK */
+   --color-foreground-dark: var(--color-foreground-dark);
+   --color-background-dark: var(--color-background-dark);
+   --color-primary-dark: var(--color-primary-dark);
+   --color-surface-dark: var(--color-surface-dark);
+}
+
+/* 3. Define the Themes */
+@layer utilities {
+  .theme-modern {
+    --color-primary: #6366f1;
+    
+
+    --color-gradient-one: #6366f1;
+    --color-gradient-two: #8b5cf6;
+    --color-gradient-three: #a78bfa;
+
+    --color-gr-three: #a78bfa;
+
+    --color-background: #ffffff;
+    --color-surface: #f8f9fc;
+    --color-foreground: #111827; /* Maps to text-foreground */
+    --color-muted: #6b7280;
+    --font-family: 'Manrope', sans-serif;
+    --radius-theme: 0.5rem;
+
+    /* DARK */
+
+    --color-background-dark: #1f2937;
+    --color-foreground-dark: #d1d5db;
+    --color-surface-dark: #111827;
+    --color-primary-dark: #4f46e5;
+  }
+
+  .theme-minimalist {
+    --color-primary: #1f2937;
+    --color-primary-dark: #111827;
+    --color-background: #f9fafb;
+    --color-surface: #ffffff;
+    --color-foreground: #374151;
+    --color-muted: #9ca3af;
+    --font-family: 'Helvetica Neue', sans-serif;
+    --radius-theme: 0.25rem;
+  }
+
+  .theme-minimalist  {
+    --color-background: #4179f2;
+    --color-surface: #1f2937;
+    --color-foreground: #d1d5db;
+    --color-muted: #6b7280;
+  }
+
+  .theme-elegant {
+    --color-primary: #8c62ed;
+    --color-primary-dark: #7c3aed;
+    --color-background: #faf7f2;
+    --color-surface: #ffffff;
+    --color-foreground: #2d2424;
+    --color-muted: #8b7e7e;
+    --font-family: 'Lora', serif;
+    --radius-theme: 0.375rem;
+  }
+
+  .theme-futuristic {
+    --color-primary: #07daed;
+    --color-primary-dark: #05a9b0;
+    --color-background: #0a0f14;
+    --color-surface: #111820;
+    --color-foreground: #e2ecf3;
+    --color-muted: #6c7a89;
+    --font-family: 'Orbitron', sans-serif;
+    --radius-theme: 0.25rem;
+  }
+
+  .theme-playful {
+    --color-primary: #ff6b6b;
+    --color-primary-dark: #e55a5a;
+    --color-background: #fffbee;
+    --color-surface: #ffffff;
+    --color-foreground: #2b2b2b;
+    --color-muted: #7d7d7d;
+    --font-family: 'Fredoka', sans-serif;
+    --radius-theme: 1rem;
+  }
+
+  .theme-brutalist {
+    --color-primary: #261bc2;
+    --color-primary-dark: #333333;
+    --color-background: #ffffff;
+    --color-background-dark: #000000;
+    --color-surface: #ffffff;
+    --color-foreground: #000000;
+    --color-foreground-dark: #ffffff;
+    --color-muted: #3a3a3a;
+    --font-family: 'Roboto Condensed', sans-serif;
+    --radius-theme: 0px;
+  }
+
+  .theme-organic {
+    --color-primary: #6aa96f;
+    --color-primary-dark: #558a57;
+    --color-background: #f4f8f5;
+    --color-surface: #ffffff;
+    --color-foreground: #2c4f2e;
+    --color-muted: #607061;
+    --font-family: 'Nunito', sans-serif;
+    --radius-theme: 0.75rem;
+  }
+}
+
+/* Base styles to apply defaults */
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.alert a {
+    text-decoration: underline;
+    color: #31b1ba;
+}
+
+.highlighted-line {
+      background-color: yellow;
+    }

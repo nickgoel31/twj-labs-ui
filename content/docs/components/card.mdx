@@ -1,0 +1,216 @@
+---
+title: Card
+description: Card Component, a flexible and stylish container for displaying content
+---
+
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+import ComponentPlayground from '@/components/code-playground-code'
+import { Card, CardHeader, CardBody, CardFooter } from '@/components/ui/card'; 
+import cardCode from '@/templates/components/card';
+import {themes} from '@/twj-lib/types';
+import { Button } from '@/components/ui/button'; 
+
+<ComponentPlayground 
+  title="Card Example"
+  description="A flexible and stylish container."
+  code={cardCode}
+/>
+
+You're looking at the documentation for the `Card` component, a flexible and stylish container for displaying content.
+
+`TL;DR:` The Card component provides a versatile and visually appealing way to present content in a structured format. It is ideal for grouping related information, highlighting key details, and enhancing the overall user interface.
+
+
+## Installation
+
+### Using CLI
+
+if you're using twjlabs/ui cli, it should be pretty easy for you
+
+<Tabs items={['npm','pnpm']} defaultIndex={1}>
+  <Tab value="npm">
+  ```bash
+npx @twjlabs/ui add card
+  ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm add @twjlabs/ui card
+    ```
+  </Tab>
+</Tabs>
+
+### Manual Installation
+
+if you're not using the cli, you would need to install it manually,
+
+
+Now make sure you have `twj-lib` folder with necessary utility functions and types in your project. If not, you can refer [here](/docs/manual-setup#create-twj-lib-files) to set it up.
+
+Finally,
+copy and paste the following code in your `components/ui` folder
+
+```tsx title="components/ui/card.tsx"
+import React from "react";
+import type { Theme } from "../twj-lib/types";
+import { cn } from "../twj-lib/tw";
+import { fontApplier } from "../twj-lib/font-applier";
+
+// ----------------------------------------------------
+// 🔵 Card Component (Main Wrapper)
+// ----------------------------------------------------
+interface CardProps {
+  theme: Theme;
+  children?: React.ReactNode;
+}
+
+export const Card = ({ theme, children }: CardProps) => {
+    // 1. Determine the root theme class
+      const themeClass = `theme-${theme}`;
+      const fontClass = fontApplier(theme);
+  // Allowed component types
+  const allowed = ["CardHeader", "CardBody", "CardFooter"];
+
+  // Validate and clone children with theme
+  const validatedChildren = React.Children.map(children, (child) => {
+    if (!React.isValidElement(child)) return child;
+
+    const childName = (child.type as any).displayName;
+
+    if (!allowed.includes(childName)) {
+      console.warn(
+        `❌ Invalid child <${childName}> passed to <Card>. Allowed children: CardHeader, CardBody, CardFooter.`
+      );
+      return null;
+    }
+
+    // inject theme into children
+    return React.cloneElement(child, { theme });
+  });
+
+  return (
+    <div data-theme={theme} className={cn(
+    // Base Styles using the variables
+        // font-theme maps to var(--font-family) set by the theme class
+        // rouded-theme maps to var(--radius-theme) set by the theme class
+        'rounded-theme font-semibold transition-all duration-200  w-[500px]',
+        'focus:outline-none ',
+    themeClass,
+    fontClass,
+    'border border-foreground/10 bg-surface p-4',
+     theme === 'brutalist' && [
+            'text-foreground   uppercase tracking-wider border-2 border-black',
+           
+            'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]',
+            
+        ],
+    )}>
+      {validatedChildren}
+    </div>
+  );
+};
+
+// ----------------------------------------------------
+// 🟣 Card Header
+// ----------------------------------------------------
+interface CardHeaderProps {
+  title?: string;
+  icon?: React.ReactNode;
+  description?: string;
+  theme?: Theme;
+  className?: string;
+}
+
+export const CardHeader = ({ title, icon, description, theme, className }: CardHeaderProps) => {
+  return (
+    <div className={cn(
+        'mb-4 flex flex-col items-start gap-2',
+        theme === 'brutalist' && 'border-b-2 border-black pb-2',
+        className
+    )}>
+      {icon && <div className={cn(
+        'mb-2',
+        theme === 'brutalist' && 'border-2 border-black p-1 bg-primary text-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]',
+      )}>{icon}</div>}
+      {title && <h2 className={cn(
+        'text-2xl font-bold ',
+        
+      )}>{title}</h2>}
+      {description && <p className="text-foreground/80 mb-2">{description}</p>}
+    </div>
+  );
+};
+CardHeader.displayName = "CardHeader";
+
+// ----------------------------------------------------
+// 🟢 Card Body
+// ----------------------------------------------------
+interface CardBodyProps {
+  children?: React.ReactNode;
+  theme?: Theme;
+  className?: string;
+}
+
+export const CardBody = ({ children, className }: CardBodyProps) => {
+  return <div className={cn(
+    className,
+  )}>{children}</div>;
+};
+CardBody.displayName = "CardBody";
+
+// ----------------------------------------------------
+// 🟠 Card Footer
+// ----------------------------------------------------
+interface CardFooterProps {
+  children?: React.ReactNode;
+  theme?: Theme;
+    className?: string;
+}
+
+export const CardFooter = ({ children, className }: CardFooterProps) => {
+  return <div className={cn(
+    className,
+  )}>{children}</div>;
+};
+CardFooter.displayName = "CardFooter";
+
+```
+## Usage
+Import the Button component and use it in your React application like so:
+
+```tsx 
+import { Card, CardHeader, CardBody, CardFooter } from "@/components/ui/card";
+
+ <Card theme="modern">
+    <CardHeader 
+        title="Welcome Back" 
+        description="This is a simple card header." 
+    />
+    <CardBody>
+        <p>This is the main content area of the card. It accepts any standard React children.</p>
+    </CardBody>
+</Card>
+```
+
+## Props
+
+The Button component accepts the following custom props:
+
+<TypeTable
+  type={{
+    align: {
+      description:
+        'Defines the alignment of the dropdown menu relative to its trigger element.',
+      type: 'right | left | center',
+      default: 'right',
+    },
+    
+    theme: {
+      description: 'Defines the theme of the button.',
+      type: themes.join(' | '),
+      default: 'modern',
+    },
+  }}
+/>
+
