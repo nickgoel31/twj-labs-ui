@@ -1,9 +1,10 @@
-
+"use client"
 import React from 'react';
 import { cn } from '@/twj-lib/tw';
 import type { Theme } from '@/twj-lib/types';
 import { Button } from '@/components/ui/button'; 
 import { fontApplier } from '@/twj-lib/font-applier'; 
+import { useTheme } from '@/contexts/ui-theme-context';
 
 // --- Shared Types ---
 interface HeroAction {
@@ -27,29 +28,32 @@ export const HeroOne = ({
     cta1,
     cta2,
     image,
-    theme = 'modern',
+    theme,
     className
 }: SharedHeroProps) => {
+
+    const {theme: contextTheme} = useTheme()
+    const [localTheme] = React.useState<Theme>(theme || contextTheme || 'modern');
     
-    const themeClass = `theme-${theme}`;
-    const styles = getHeroStyles(theme);
+    const themeClass = `theme-${localTheme}`;
+    const styles = getHeroStyles(localTheme);
     const hasImage = !!image;
 
     return (
         <section
             className={cn(
                 themeClass,
-                fontApplier(theme),
-                "relative w-full overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-32",
+                fontApplier(localTheme),
+                "relative w-full overflow-hidden pt-20 pb-20  lg:pb-32",
                 styles.container,
                 className
             )}
         >
             {/* Background Decorators */}
-            {theme === 'modern' && (
+            {localTheme === 'modern' && (
                 <div className="absolute top-0 right-0 -z-10 h-full w-1/2 bg-gradient-to-bl from-primary/5 to-transparent blur-3xl" />
             )}
-            {theme === 'futuristic' && (
+            {localTheme === 'futuristic' && (
                 <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
             )}
 
@@ -68,10 +72,10 @@ export const HeroOne = ({
                         </p>
                         <div className={cn("flex flex-wrap gap-4", !hasImage && "justify-center")}>
                             {cta1 && (
-                                <Button label={cta1.label} onClick={cta1.onClick} theme={theme} variant="primary" size="large" className="w-full sm:w-auto shadow-xl" />
+                                <Button label={cta1.label} onClick={cta1.onClick} theme={localTheme} variant="primary" size="large" className="w-full sm:w-auto shadow-xl" />
                             )}
                             {cta2 && (
-                                <Button label={cta2.label} onClick={cta2.onClick} theme={theme} variant={theme === 'brutalist' ? 'secondary' : 'outline'} size="large" className="w-full sm:w-auto" />
+                                <Button label={cta2.label} onClick={cta2.onClick} theme={localTheme} variant={localTheme === 'brutalist' ? 'secondary' : 'outline'} size="large" className="w-full sm:w-auto" />
                             )}
                         </div>
                     </div>
@@ -91,3 +95,59 @@ export const HeroOne = ({
         </section>
     );
 };
+
+
+/* ---------------------------
+   Shared Theme-based styling
+---------------------------- */
+function getHeroStyles(theme: Theme) {
+    switch (theme) {
+        case 'brutalist':
+            return {
+                container: "bg-background border-b-4 border-black",
+                heading: "text-black uppercase leading-none drop-shadow-[2px_2px_0_rgba(0,0,0,1)]",
+                subheading: "text-black font-bold mx-auto",
+                imageWrapper: "border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-none"
+            };
+
+        case 'futuristic':
+            return {
+                container: "bg-background text-foreground",
+                heading: "text-transparent bg-clip-text bg-gradient-to-b from-white to-primary/60 drop-shadow-[0_0_15px_rgba(var(--color-primary),0.3)]",
+                subheading: "text-muted-foreground",
+                imageWrapper: "ring-1 ring-primary/50 shadow-[0_0_30px_-5px_var(--color-primary)] bg-black/50 backdrop-blur-sm"
+            };
+
+        case 'elegant':
+            return {
+                container: "bg-surface",
+                heading: "text-foreground font-serif leading-tight",
+                subheading: "text-muted-foreground italic",
+                imageWrapper: "shadow-2xl ring-1 ring-black/5 rounded-xl"
+            };
+
+        case 'playful':
+            return {
+                container: "bg-surface",
+                heading: "text-foreground tracking-tight",
+                subheading: "text-muted-foreground font-medium",
+                imageWrapper: "rotate-2 border-4 border-white shadow-xl rounded-[2rem]"
+            };
+
+        case 'organic':
+            return {
+                container: "bg-[#F5F5F0]",
+                heading: "text-[#2A2A2A] tracking-tighter",
+                subheading: "text-[#5A5A5A]",
+                imageWrapper: "rounded-[3rem] shadow-lg"
+            };
+
+        default: // Modern
+            return {
+                container: "bg-surface",
+                heading: "text-foreground",
+                subheading: "text-muted-foreground",
+                imageWrapper: "shadow-2xl rounded-2xl ring-1 ring-black/10"
+            };
+    }
+}
