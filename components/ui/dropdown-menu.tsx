@@ -128,8 +128,10 @@ interface DropdownMenuTriggerProps {
 
 export const DropdownMenuTrigger = ({ children }: DropdownMenuTriggerProps) => {
   const { isOpen, setIsOpen, activeTheme } = useDropdownMenu();
+
   
-  return React.cloneElement(children as React.ReactElement, {
+  
+  return React.cloneElement(children as React.ReactElement<any>, {
     theme: activeTheme,
     onClick: (e: React.MouseEvent) => {
         // preserve existing onclick if it exists
