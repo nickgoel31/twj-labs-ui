@@ -15,6 +15,7 @@ import {
   Grenze_Gotisch
 } from "next/font/google";
 import { ModeThemeProvider } from '@/contexts/local-theme-provider';
+import { AIContextProvider } from '@/contexts/ai-context';
 
 // 2. Setup the font instances with specific variable names
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
@@ -33,6 +34,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
             enableSystem
             disableTransitionOnChange>
     <ThemeProvider initialTheme='brutalist'>
+      <AIContextProvider>
       <html lang="en" className={`
           ${manrope.variable} 
             ${lora.variable} 
@@ -66,6 +68,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
           </RootProvider>
         </body>
       </html>
+      </AIContextProvider>
    </ThemeProvider>
    </ModeThemeProvider>
   );

@@ -1,18 +1,22 @@
 "use client"
 
 import { Badge } from '@/components/ui/badge'
-import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Card, CardBody, CardFooter, CardHeader } from '@/components/ui/card'
 import CodeBlock from '@/components/ui/codeblock'
 import { Tab, Tabs, TabsList, TabsView, TabView } from '@/components/ui/tabs'
 import { useTheme } from '@/contexts/ui-theme-context'
 import { fontApplier } from '@/twj-lib/font-applier'
 import { cn } from 'fumadocs-ui/utils/cn'
-import React from 'react'
+import React, { useState } from 'react'
 
 const ThemesHero = () => {
      const {setTheme, theme} = useTheme()
         
-          
+          // Local state for the "preview" theme only
+  const [previewTheme, setPreviewTheme] = useState('purple');
+
+  const themes = ['purple', 'blue', 'green', 'red', 'yellow', 'indigo'];
     
           const fontClass = fontApplier(theme)
   return (
@@ -42,14 +46,23 @@ const ThemesHero = () => {
                     <Tab tab="blue">Blue</Tab>
                     <Tab tab="green">Green</Tab>
                     <Tab tab="red">Red</Tab>
-                    <Tab tab="brutalist">Brutalist</Tab>
+                    <Tab tab="yellow">Yellow</Tab>
+                    <Tab tab="indigo">Indigo</Tab>
+
+                    
                 </TabsList>
                 <TabsView>
                     <TabView tab="purple">
                        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                             <div>
-                                <Card className='shadow-none'>
-
+                                <Card className='max-w-[400px]'>
+                                    <CardHeader title='Right Now' description='This is a simple card component' />
+                                    <CardBody>
+                                        This is some example content inside the card body.
+                                    </CardBody>
+                                    <CardFooter>
+                                        <Button>Click me</Button>
+                                    </CardFooter>
                                 </Card>
                             </div>
                        </div>

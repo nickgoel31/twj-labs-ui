@@ -730,3 +730,38 @@
 .highlighted-line {
       background-color: yellow;
     }
+
+/* 🟣 PURPLE THEME (Default) */
+[data-theme="purple"] {
+  --primary: 262 83% 58%;
+  --primary-foreground: 210 40% 98%;
+  --radius: 0.5rem;
+}
+
+/* 🔵 BLUE THEME */
+[data-theme="blue"] {
+  --primary: 221 83% 53%;
+  --primary-foreground: 210 40% 98%;
+  --radius: 0.75rem; /* Rounder buttons */
+}
+
+/* 🟢 GREEN THEME */
+[data-theme="green"] {
+  --primary: 142 71% 45%;
+  --primary-foreground: 144 100% 97%;
+  --radius: 0rem; /* Brutalist sharp edges */
+}
+
+/* 🔴 RED THEME */
+[data-theme="red"] {
+  --primary: 0 84% 60%;
+  --primary-foreground: 0 0% 100%;
+  --radius: 1rem;
+}
+
+/* 🟡 YELLOW THEME */
+[data-theme="yellow"] {
+  --primary: 47 95% 57%;
+  --primary-foreground: 20 14% 4%;
+  --radius: 1.5rem;
+}

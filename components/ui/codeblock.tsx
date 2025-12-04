@@ -13,9 +13,10 @@ interface CodeBlockProps extends TWJComponentsProps {
     showLineNumbers?: boolean;
     code?: string;
     wrapLines?: boolean;
+    language?: string;
 }
 
-const CodeBlock = ({ code="", theme, showLineNumbers=false, wrapLines=false }: CodeBlockProps) => {
+const CodeBlock = ({ code="", theme, showLineNumbers=false, wrapLines=false, language="python" }: CodeBlockProps) => {
     const { theme: contextTheme } = useTheme();
       const [mounted, setMounted] = React.useState(false);
     
@@ -36,7 +37,7 @@ const CodeBlock = ({ code="", theme, showLineNumbers=false, wrapLines=false }: C
         'bg-surface dark:bg-surface-dark',
         'border rounded-theme border-foreground/20',
     )}>
-        <SyntaxHighlighter language="python"  showLineNumbers={showLineNumbers} wrapLines={wrapLines} lineNumberStyle={{ color: '#888', paddingRight: '10px' }} customStyle={{background:'var(--background-surface)', margin:0, padding:0, color: 'var(--twj-foreground)'}} style={dark}>
+        <SyntaxHighlighter language={language}  showLineNumbers={showLineNumbers} wrapLines={wrapLines} lineNumberStyle={{ color: '#888', paddingRight: '10px' }} customStyle={{background:'var(--background-surface)', margin:0, padding:0, color: 'var(--twj-foreground)'}} style={dark}>
             {code}
         </SyntaxHighlighter>
     </pre>

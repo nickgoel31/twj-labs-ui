@@ -7,6 +7,7 @@ import { Theme, TWJComponentsProps } from "@/twj-lib/types"
 import { AnimatePresence, motion } from "motion/react"
 import { createContext, useContext, useEffect, useState } from "react"
 
+// 1. Context Definition
 type TabsContextType = {
     selectedTab: string
     changeSelectedTab: (tab: string) => void
@@ -15,29 +16,23 @@ type TabsContextType = {
 
 const TabsContext = createContext<TabsContextType | undefined>(undefined)
 
-
 export const useTabsContext = () => {
     const tabsContext = useContext(TabsContext)
-
-    
-    
-    if(!tabsContext) {
+    if (!tabsContext) {
         throw new Error("useTabsContext must be used within a TabsProvider")
     }
-
     return tabsContext
 }
 
-
-// 3. Main Tabs Component (Acts as the Provider)
+// 2. Main Tabs Component (Acts as the Provider)
 interface TabsProps extends TWJComponentsProps {
     children: React.ReactNode
-    defaultValue: string // Mandatory to know which tab is open first
+    defaultValue: string
     className?: string
-    
+    onTabChange?: (tab: string) => void // ✅ Now implemented
 }
 
-export const Tabs = ({ children, theme, defaultValue, className }: TabsProps) => {
+export const Tabs = ({ children, theme, defaultValue, className, onTabChange }: TabsProps) => {
     const [selectedTab, setSelectedTab] = useState(defaultValue)
     const { theme: contextTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
@@ -53,9 +48,17 @@ export const Tabs = ({ children, theme, defaultValue, className }: TabsProps) =>
     const fontClass = fontApplier(appliedTheme)
     const themeClass = `theme-${appliedTheme}`
 
+    // ✅ Logic Update: Wrap the state setter to trigger onTabChange
+    const handleTabChange = (tab: string) => {
+        setSelectedTab(tab)
+        if (onTabChange) {
+            onTabChange(tab)
+        }
+    }
+
     const contextValue = {
         selectedTab,
-        changeSelectedTab: setSelectedTab,
+        changeSelectedTab: handleTabChange, // Pass the wrapper instead of raw setter
         theme: appliedTheme
     }
 
@@ -75,6 +78,7 @@ export const Tabs = ({ children, theme, defaultValue, className }: TabsProps) =>
     )
 }
 
+// 3. Tabs List Container
 export const TabsList = ({children, className}: {children: React.ReactNode; className?: string}) => {
     const {theme} = useTabsContext()
     return (
@@ -93,26 +97,49 @@ export const TabsList = ({children, className}: {children: React.ReactNode; clas
     )
 }
 
-export const Tab = ({tab, children, className, title}: {tab: string; children?: React.ReactNode; className?: string; title?: string}) => {
-    const {selectedTab, changeSelectedTab} = useTabsContext()
+// 4. Individual Tab Button
+// ✅ Updated props to extend HTMLButtonElement so 'onClick' works naturally
+interface TabProps extends React.ComponentProps<"button"> {
+    tab: string
+    children?: React.ReactNode
+    className?: string
+    title?: string
+}
+
+export const Tab = ({ tab, children, className, title, onClick, ...props }: TabProps) => {
+    const { selectedTab, changeSelectedTab } = useTabsContext()
 
     const isActive = selectedTab === tab
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        // 1. Switch the tab in context
+        changeSelectedTab(tab)
+        
+        // 2. Fire specific onClick handler if user provided one
+        if (onClick) {
+            onClick(e)
+        }
+    }
+
     return (
         <button
+            type="button" // Good practice to prevent form submission
             className={cn(
                 `tab`,
                 'p-2 px-3 border rounded-theme',
-                'transition  ease-in-out',
-                isActive ? 'bg-primary text-primary-foreground  border-foreground/15' : 'bg-transparent text-foreground dark:text-foreground-dark border-transparent hover:bg-foreground/10',
+                'transition ease-in-out',
+                isActive ? 'bg-primary text-primary-foreground border-foreground/15' : 'bg-transparent text-foreground dark:text-foreground-dark border-transparent hover:bg-foreground/10',
                 className
             )}
-            onClick={() => changeSelectedTab(tab)}
+            onClick={handleClick} // ✅ Use the wrapper handler
+            {...props} // ✅ Spread other props (disabled, id, etc.)
         >
             {children ? children : title}
         </button>
     )
 }
 
+// 5. Views
 export const TabsView = ({children}: {children: React.ReactNode}) => {
     return <div className="tabs-view">{children}</div>
 }
@@ -124,7 +151,6 @@ export const TabView = ({tab, children}: {tab: string; children: React.ReactNode
         return null
     }
 
-    
     return (
         <ThemeProvider initialTheme={theme} key={theme}>
            <AnimatePresence initial={true}>
@@ -135,7 +161,7 @@ export const TabView = ({tab, children}: {tab: string; children: React.ReactNode
                 exit={{ opacity: 0, transform: 'translateY(10px)' }}
                 className={cn(
                     "tab-view", 
-                    fontApplier(theme) // Ensure fonts apply to text directly inside
+                    fontApplier(theme)
                 )}
             >
                 {children} 
