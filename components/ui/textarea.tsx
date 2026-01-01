@@ -82,7 +82,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps & React.Tex
         className={cn(
           themeClass,
           fontClass,
-          'rounded-theme border border-muted/30 bg-surface p-2 transition',
+          'rounded-theme border border-muted/30 bg-surface dark:bg-surface-dark p-2 transition',
           'focus:outline-none focus:ring-2 focus:ring-primary/50',
           'text-foreground ',
           

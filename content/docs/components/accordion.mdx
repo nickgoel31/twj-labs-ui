@@ -1,3 +1,53 @@
+---
+title: Accordion
+description: Accordion Component — collapsible content that actually knows it's better than the rest.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+import ComponentPlayground from '@/components/code-playground-code'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion';
+import accordionCode from '@/templates/components/accordion';
+import {themes} from '@/twj-lib/types';
+
+<ComponentPlayground
+title="Accordion Example"
+description="Because sometimes you want to hide brilliance until the user earns it."
+code={accordionCode}
+scope={{Accordion, AccordionItem, AccordionTrigger, AccordionContent}}
+variants={['single','multiple']}
+/>
+
+A theme-aware, hydration-safe accordion that opens and closes without making a fuss. It's got context, state management, animation, and a personality — mostly smug.
+
+TL;DR: Use `<Accordion>` when you want collapsible sections that behave like professionals. It doesn't beg for attention — it commands it.
+
+## Installation
+
+### Using CLI
+
+Yes, the CLI again because you're classy.
+
+<Tabs items={["npm","pnpm"]} defaultIndex={1}> <Tab value="npm">
+
+```bash
+npx @twjlabs/ui add accordion
+```
+
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm dlx @twjlabs/ui add accordion
+    ```
+  </Tab>
+</Tabs>
+
+### Manual Installation
+
+No CLI? Fine. Make sure you have the usual suspects in place: `twj-lib` utilities, theme context, and motion/react for animations. If you don't, see the manual setup docs.
+
+Copy this file into `components/ui/accordion.tsx` and take the developer nod of approval you'll earn.
+
+```tsx title="components/ui/accordion.tsx"
 "use client"
 
 import { ThemeProvider, useTheme } from '@/contexts/ui-theme-context'
@@ -199,3 +249,67 @@ export const AccordionContent = ({ children, className }: { children: React.Reac
         </AnimatePresence>
     )
 }
+```
+## ✨ Features
+
+* Single or multiple-open behaviour via `openType` (`single` | `multiple`).
+* Theme-aware and hydration-safe — it picks a theme and owns it.
+* Context-driven API: `Accordion`, `AccordionItem`, `AccordionTrigger`, `AccordionContent`.
+* Smooth open/close animations powered by `motion/react`.
+* Small bundle footprint. Big attitude.
+
+## Usage
+
+```tsx title="Usage Example"
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion'
+
+<Accordion openType="multiple" defaultValue={["section-1"]}>
+  <AccordionItem value="section-1">
+    <AccordionTrigger>Section 1</AccordionTrigger>
+    <AccordionContent>
+      This is the content for section 1. It reveals itself when it feels like it.
+    </AccordionContent>
+  </AccordionItem>
+
+  <AccordionItem value="section-2">
+    <AccordionTrigger>Section 2</AccordionTrigger>
+    <AccordionContent>
+      Section 2 content. Polite, concise, and correct.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+## 📦 Props
+
+| Prop           | Type                     | Default  | Description                                   |
+| -------------- | ------------------------ | -------- | --------------------------------------------- |
+| `children`     | `ReactNode`              | —        | `Accordion` children (Items & subcomponents). |
+| `theme`        | `Theme`                  | context  | Override theme for this accordion instance.   |
+| `openType`     | `'single' \| 'multiple'` | `single` | Controls whether multiple items can be open.  |
+| `defaultValue` | `string \| string[]`     | —        | Initial open item(s).                         |
+| `className`    | `string`                 | —        | Tailwind classes for the wrapper.             |
+
+### Subcomponents
+
+| Component          | Props                                 | Notes                                                      |
+| ------------------ | ------------------------------------- | ---------------------------------------------------------- |
+| `AccordionItem`    | `value: string`, `className?: string` | Wraps a single collapsible unit.                           |
+| `AccordionTrigger` | `children`, `className?`              | Click to open/close. Includes a rotating chevron.          |
+| `AccordionContent` | `children`, `className?`              | Animated content area. Uses `motion/react` for smoothness. |
+
+## Accessibility & Behavior
+
+* Buttons use native `<button>` elements for keyboard friendliness.
+* State is propagated through React context — predictable and testable.
+* Hydration-safe theme handling: chooses a default until client mounts.
+
+## Gotchas
+
+* Make sure each `AccordionItem` has a unique `value` — collisions are amateur hour.
+* `defaultValue` accepts either a string or an array depending on `openType`.
+* If you want deep-linking, handle URL syncing yourself. This component refuses to hold your router's hand.
+
+## Want it meaner or friendlier?
+
+I can make the tone nastier, nicer, or give you a compact 'API-only' cheat sheet. Say the word.

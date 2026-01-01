@@ -10,12 +10,13 @@ interface OTPInputProps extends TWJComponentsProps {
   className?: string;
     inputNumber?: number;
     value?: string;
+    placeholder?: string;
     onChange?: (otp: string) => void;
 }
 
 //BUILD ON TOP OF react-otp-input LIBRARY by devfolioco
 
-const OTPInput = ({ theme, className, inputNumber = 4, value, onChange }: OTPInputProps) => {
+const OTPInput = ({ theme, className, inputNumber = 4, value, onChange, placeholder="x" }: OTPInputProps) => {
   const [otp, setOtp] = React.useState('');
   const { theme: contextTheme } = useTheme();
   
@@ -43,6 +44,7 @@ const OTPInput = ({ theme, className, inputNumber = 4, value, onChange }: OTPInp
             {...props} 
             theme={appliedTheme} 
             className='text-center font-semibold'
+            placeholder={placeholder}
             // Override the default inline width from the library if needed
             style={{ width: "2.5rem" }} 
           />

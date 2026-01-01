@@ -56,8 +56,8 @@ const ImageContainer = ({
   className={cn(
     themeClass,
     fontClass,
-    "overflow-hidden rounded-theme border border-foreground/20 bg-surface",
-    appliedTheme === "brutalist" && "border-2 border-foreground shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-brutalist",
+    "overflow-hidden rounded-theme border border-border dark:border-border-dark bg-surface",
+    appliedTheme === "brutalist" && "border-2 border-border dark:border-border-dark/20 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]/20 font-brutalist",
     className
   )}
   
@@ -82,7 +82,7 @@ const ImageContainer = ({
 
       <div>
         {description && (
-            <div className={cn('p-2 text-foreground text-xs font-medium  w-full')}>
+            <div className={cn('p-2 text-foreground dark:text-foreground-dark text-xs font-medium  w-full')}>
                 {description} 
             </div>
         )}

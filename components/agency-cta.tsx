@@ -21,7 +21,7 @@ export default function AgencyCTA() {
 
                      <h2 className="text-3xl md:text-5xl font-bold leading-tight  mb-6 mt-6">
                         Need a custom website <br/>
-                        <span className="text-transparent bg-clip-text bg-primary dark:bg-accent-foreground-dark">
+                        <span className="text-transparent bg-clip-text bg-primary dark:bg-primary-dark-mode">
                             built by pros?
                         </span>
                     </h2>

@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import { Check, X, ArrowRight, Zap } from 'lucide-react';
 import Heading from './ui/basic/heading'; // Assuming these exist based on snippet
@@ -7,6 +9,7 @@ import { Theme } from '@/twj-lib/types';
 
 // Import your custom Card system
 import { Card, CardBody, CardFooter, CardHeader } from './ui/card'; // Adjust path as needed
+import { useTheme } from '@/contexts/ui-theme-context';
 
 const plans = [
   {
@@ -63,6 +66,7 @@ interface PricingSectionProps {
 }
 
 export default function PricingSection({ theme = 'modern' }: PricingSectionProps) {
+  const {theme: contextTheme} = useTheme()
   return (
     <section className="py-24 bg-background dark:bg-background-dark relative" id="pricing">
       <div className="container px-4 md:px-6 mx-auto relative z-10">
@@ -83,11 +87,11 @@ export default function PricingSection({ theme = 'modern' }: PricingSectionProps
           {plans.map((plan, index) => (
             <Card 
               key={index}
-              theme={theme}
+              theme={contextTheme}
               className={`
-                relative flex flex-col h-full
+                relative flex flex-col h-full shadow-none! p-6
                 ${plan.featured 
-                  ? 'border-primary dark:border-primary-dark-mode shadow-2xl shadow-primary/10 scale-105 z-10' 
+                  ? 'border-primary dark:border-primary-dark-mode shadow-2xl shadow-primary scale-105 z-10' 
                   : plan.isAgency 
                     ? 'hover:border-neutral-400 dark:hover:border-neutral-600'
                     : 'hover:border-neutral-400 dark:hover:border-neutral-600'
@@ -98,10 +102,10 @@ export default function PricingSection({ theme = 'modern' }: PricingSectionProps
               <CardHeader 
                 title={plan.name}
                 description={plan.description}
-                className={plan.isAgency ? "text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600" : ""}
+                className={`border-b-border/10 dark:border-b-border-dark/10! ${plan.isAgency ? "text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600" : ""}`}
               >
                 {/* Price Display injected as children into CardHeader */}
-                <div className="flex items-baseline gap-1 mt-2 mb-2">
+                <div className="flex items-baseline gap-1 mt-2 ">
                   <span className={`text-4xl font-bold ${plan.isAgency ? 'text-foreground dark:text-foreground-dark' : 'text-card-foreground dark:text-card-foreground-dark'}`}>
                     {plan.price}
                   </span>
@@ -140,7 +144,7 @@ export default function PricingSection({ theme = 'modern' }: PricingSectionProps
                 ))}
               </CardBody>
 
-              <CardFooter className={theme === 'brutalist' ? "border-t-2 border-black dark:border-white pt-6" : ""}>
+              {/* <CardFooter className={theme === 'brutalist' ? "border-t-2 border-black dark:border-white pt-6" : ""}>
                 <Button 
                   theme={theme}
                   variant={plan.featured ? 'primary' : plan.isAgency ? 'outline' : 'secondary'}
@@ -152,7 +156,7 @@ export default function PricingSection({ theme = 'modern' }: PricingSectionProps
                   {plan.cta}
                   {plan.isAgency && <ArrowRight className="w-4 h-4 ml-1" />}
                 </Button>
-              </CardFooter>
+              </CardFooter> */}
 
             </Card>
           ))}

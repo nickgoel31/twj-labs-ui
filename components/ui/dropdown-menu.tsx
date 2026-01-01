@@ -163,11 +163,11 @@ export const DropdownMenuContent = ({ children, className }: DropdownMenuContent
             fontClass,
             "absolute z-50 min-w-[200px] origin-top-right overflow-hidden translate-y-1",
             align === 'right' ? 'right-0' : 'left-0',
-            "bg-surface text-foreground font-theme rounded-theme",
+            "bg-surface dark:bg-surface-dark  font-theme rounded-theme",
             "border border-muted/20 shadow-lg",
-            activeTheme === 'futuristic' && "border-primary/40 shadow-[0px_0px_20px_0px_var(--color-primary)] bg-background/90 backdrop-blur-md",
+            activeTheme === 'futuristic' && "border-primary/40 shadow-[0px_0px_20px_0px_var(--color-primary)]/20 bg-background/90 backdrop-blur-md",
             activeTheme === 'brutalist' && [
-              "border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]", "mt-1"
+              "border-2 border-border dark:border-border-dark shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-foreground-dark", "mt-1"
             ],
             activeTheme === 'elegant' && "border-none shadow-xl ring-1 ring-black/5",
             className
@@ -217,10 +217,10 @@ export const DropdownMenuItem = ({
       disabled={disabled}
       className={cn(
         fontApplier(activeTheme),
-        "group flex w-full items-center px-4 py-2.5 text-sm text-left transition-colors duration-150",
+        "group flex w-full items-center px-4 py-2.5 text-sm text-left transition-colors duration-200 text-foreground dark:text-foreground-dark",
         "hover:bg-muted/30 focus:bg-muted/30 focus:outline-none",
         link && "cursor-pointer",
-        danger ? "text-red-500 hover:text-red-600 hover:bg-red-50" : "text-foreground",
+        danger ? "text-red-500! hover:text-red-600! hover:bg-red-200!" : "text-foreground",
         disabled && "opacity-50 cursor-not-allowed",
         activeTheme === 'brutalist' && "hover:bg-primary hover:text-white hover:font-bold border-b border-transparent hover:border-black last:border-0",
         activeTheme === 'futuristic' && "hover:bg-primary/20 hover:text-primary hover:shadow-[inset_2px_0_0_0_var(--color-primary)]",

@@ -53,15 +53,15 @@ const Avatar = ({
     <div className={cn(
         themeClass,
         fontClass,
-        'group relative rounded-full overflow-hidden bg-surface border border-foreground/20 flex items-center justify-center',
+        'group relative rounded-full overflow-hidden bg-surface dark:bg-surface-dark border border-border/5 dark:border-border-dark/5 flex items-center justify-center',
         
         size === 'small' && 'w-8 h-8',
         size === 'medium' && 'w-12 h-12',
         size === 'large' && 'w-16 h-16',
-        appliedTheme === 'brutalist' && ['border-2 rounded-theme border-foreground ','shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]'],
+        appliedTheme === 'brutalist' && ['border-2 rounded-theme border-border dark:border-border-dark/20','shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]/20'],
         className
     )}>
-        <div className='absolute -left-[0%] -top-[0%] -translate-x-1/2 -translate-y-1/2 group-hover:translate-x-[100%] group-hover:translate-y-[400%] w-[150%] aspect-[4/1] rotate-135 bg-linear-to-b from-transparent via-white/30 blur-sm to-transparent z-10 transition duration-1000 ease-in-out '>
+        <div className='absolute -left-[50%] -top-[40%] -translate-x-1/2 -translate-y-1/2 group-hover:translate-x-[100%] group-hover:translate-y-[400%] w-[150%] aspect-[4/1] rotate-135 bg-linear-to-b from-transparent via-white/30 blur-sm to-transparent z-10 transition duration-1000 ease-in-out '>
 
         </div>
 

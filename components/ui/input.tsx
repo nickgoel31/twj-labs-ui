@@ -81,12 +81,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps & React.InputHTMLAtt
           themeClass,
           fontClass,
           'rounded-theme border border-muted/30 bg-surface p-2 transition',
-          'focus:outline-none focus:ring-2 focus:ring-primary/50',
+          'focus:outline-none focus:ring-2 focus:ring-primary/50 focus:dark:ring-primary-dark-mode/50',
+          'placeholder:opacity-40 placeholder',
           'text-foreground ',
           appliedTheme === 'organic' && 'rounded-full!',
           appliedTheme === 'brutalist' && [
-            'bg-background text-foreground font-brutalist uppercase tracking-wider border-2 border-black',
-            'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]',
+            'bg-surface dark:bg-surface-dark text-foreground dark:text-foreground-dark  font-brutalist uppercase tracking-wider border-2 border-black dark:border-white/30',
+            'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]/20',
           ],
           className
         )}

@@ -1,0 +1,125 @@
+---
+
+title: Avatar
+description: Avatar Component — compact, theme-aware user portrait that won't apologize for looking polished.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+import ComponentPlayground from '@/components/code-playground-code'
+import Avatar from '@/components/ui/avatar';
+import avatarCode from '@/templates/components/avatar';
+import {themes} from '@/twj-lib/types';
+
+<ComponentPlayground
+title="Avatar Example"
+description="Tiny, tidy user avatars with sensible fallbacks and a flair for the dramatic."
+code={avatarCode}
+scope={{Avatar}}
+variants={['small','medium','large']}
+/>
+
+An avatar component that does what avatars should: show an image when available, fall back to an icon when not, and stay consistent across themes — all while staying hydration-safe for Next.js.
+
+TL;DR: Use `<Avatar>` when you want a profile picture that behaves like a pro and looks like it takes zero effort.
+
+## Installation
+
+### Using CLI
+
+If you're using the `@twjlabs/ui` CLI, installing the Avatar is exactly as predictable as you'd hope:
+
+```bash
+npx @twjlabs/ui add avatar
+```
+
+Or if you're living the fast life with pnpm:
+
+```bash
+pnpm dlx @twjlabs/ui add avatar
+```
+
+### Manual Installation
+
+If you're doing things manually (respect), make sure your project includes:
+
+* `ui-theme-context` (for theme resolution)
+* `twj-lib` utilities (`cn`, `fontApplier`, types)
+* `next/image` configured properly
+
+Then drop your `avatar.tsx` file into `components/ui/`.
+
+---
+
+## What's inside
+
+* Theme-aware styling (uses `ui-theme-context`).
+* Hydration-safe theme resolution (server-friendly default until mount).
+* Image rendering via `next/image` with graceful fallback to SVG/icon.
+* Three sensible sizes: `small`, `medium`, `large`.
+* Brutalist theme tweaks for that chunky, dramatic look.
+
+## Usage
+
+```tsx title="Usage Example"
+import Avatar from '@/components/ui/avatar';
+
+export default function Demo() {
+  return (
+    <div className="flex gap-4 items-center">
+      <Avatar size="small" src="/avatars/alex.jpg" alt="Alex" />
+      <Avatar size="medium" src="/avatars/sam.jpg" alt="Sam" />
+      <Avatar size="large" /> {/* Renders fallback SVG */}
+    </div>
+  )
+}
+```
+
+## ✨ Features & Behavior
+
+* `src` (optional): if present, `next/image` renders it with `fill` + `object-cover` for perfect crops.
+* `fallbackIcon`: pass a custom icon, otherwise a built-in friendly SVG is used.
+* Hydration-safe theme handling — avoids client/server mismatch by defaulting to `modern` until mount.
+* Visual flourish: a subtle animated sheen on hover (pure CSS) for a little polish.
+* `brutalist` theme adds chunky borders and a bold shadow — for people who think minimalism is boring.
+
+## Props
+
+| Prop           | Type                             | Default       | Description                          |
+| -------------- | -------------------------------- | ------------- | ------------------------------------ |
+| `size`         | `'small' \| 'medium' \| 'large'` | `medium`      | Avatar size (w/h).                   |
+| `src`          | `string`                         | —             | Image source for `next/image`.       |
+| `alt`          | `string`                         | `User Avatar` | Alt text for accessibility.          |
+| `fallbackIcon` | `ReactNode`                      | default SVG   | Custom fallback if `src` is missing. |
+| `theme`        | `Theme`                          | context       | Override theme used for styling.     |
+| `className`    | `string`                         | —             | Extra tailwind classes on wrapper.   |
+
+## Accessibility
+
+* Provides `alt` on images — always pass meaningful alt text for users.
+* Uses semantic `<div>` wrapper with focus styles inherited from buttons elsewhere; if you make the avatar interactive, wrap it in a button or link and provide accessible labels.
+
+## Gotchas & Tips
+
+* `next/image` requires correct loader and public path config in Next.js — if images don't show up, check those first.
+* The component uses `fill` layout for `next/image`; parent must be `relative` and have explicit sizing (the wrapper handles that). You're welcome.
+* If you want initials-based fallback (e.g., "JS"), pass a `fallbackIcon` component that renders initials. This component won't invent initials for you — it's confident, not psychic.
+
+## Examples
+
+### Custom fallback (initials)
+
+```tsx
+<Avatar size="medium" fallbackIcon={<div className="text-sm font-bold">JS</div>} />
+```
+
+### Avatar inside a button (clickable profile)
+
+```tsx
+<button aria-label="Open profile" className="rounded-full focus:outline-none">
+  <Avatar size="large" src="/avatars/you.jpg" alt="Your Name" />
+</button>
+```
+
+## Want a playground or a compact API sheet?
+
+I can add a live `<ComponentPlayground />` block, variant gallery, or a terse one-line cheat sheet for your docs. Say the word and I’ll make it smug.

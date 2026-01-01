@@ -74,7 +74,7 @@ export const Button = ({
         
         // Variants
         variant === 'primary' && [
-          'bg-primary dark:bg-primary-dark-mode text-white hover:bg-primary-dark',
+          'bg-primary dark:bg-primary-dark-mode text-primary-foreground dark:text-primary-foreground-dark hover:bg-primary-dark',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           appliedTheme === 'futuristic' && 'shadow-[0px_0px_15px_0px_var(--color-primary)]',
           appliedTheme === 'brutalist' && 'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]! dark:shadow-accent! bg-primary! dark:bg-primary-dark-mode! text-background! hover:bg-primary/80!',
@@ -84,12 +84,12 @@ export const Button = ({
           'bg-surface text-foreground border border-muted/20 hover:bg-muted/10',
           appliedTheme === 'brutalist' && 'bg-gray-200 border-2 border-black'
         ],
-        variant === 'outline' && 'bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white',
+        variant === 'outline' && 'bg-transparent border-2 border-primary text-primary-foreground dark:text-primary-foreground-dark hover:bg-primary hover:text-white',
         variant === 'ghost' && 'bg-transparent text-foreground hover:bg-muted/20',
         appliedTheme === 'brutalist' && [
           'bg-background text-foreground uppercase tracking-wider border-2 border-black',
           'hover:bg-primary hover:text-background',
-          'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]',
+          'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-foreground-dark',
           'active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
         ],
         className

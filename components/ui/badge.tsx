@@ -70,7 +70,7 @@ export const Badge = ({
             appliedTheme === 'brutalist' && 'border-2 rounded-none uppercase',
             size === 'small' && 'text-xs px-2 py-0.5',
             size === 'large' && 'text-lg px-4 py-2',
-            variant === 'primary' && 'bg-primary dark:bg-primary-dark-mode text-primary-foreground border-primary/20',
+            variant === 'primary' && 'bg-primary dark:bg-primary-dark-mode text-primary-foreground dark:text-primary-foreground-dark border-primary/20',
             variant === 'secondary' && 'bg-secondary dark:bg-secondary-dark text-secondary-foreground border-foreground/15',
             variant === 'outline' && [
                 'bg-transparent! text-foreground dark:text-foreground-dark border-border dark:border-border-dark',

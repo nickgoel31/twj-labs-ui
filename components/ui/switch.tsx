@@ -102,20 +102,20 @@ export const Switch = ({
 
     switch (appliedTheme) {
       case 'brutalist':
-        uncheckedTrack = "bg-gray-300 border-2 border-black rounded-none p-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]";
-        checkedTrack = "bg-gray-300 border-2 border-black rounded-none p-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]";
+        uncheckedTrack = "bg-neutral-300 dark:bg-neutral-700 border-2 border-black dark:border-white/50 rounded-none p-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]/50";
+        checkedTrack = "bg-neutral-300 dark:bg-neutral-700 border-2 border-black dark:border-white/50 rounded-none p-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]/50";
         break;
       case 'futuristic':
         uncheckedTrack = "bg-white/10 border border-primary/40";
         checkedTrack = "bg-primary/50 border border-primary/80 shadow-[0px_0px_10px_0px_var(--color-primary)]";
         break;
       case 'organic':
-        uncheckedTrack = "bg-gray-200";
+        uncheckedTrack = "bg-neutral-200";
         checkedTrack = "bg-green-600";
         break;
       case 'modern':
         checkedTrack = "bg-gradient-to-r from-[var(--color-gradient-one)] to-[var(--color-gradient-two)] ";
-        uncheckedTrack = "bg-gradient-to-r from-gray-300 to-gray-300 ";
+        uncheckedTrack = "bg-gradient-to-r from-neutral-300 to-neutral-300 ";
         break;
       default:
         break;
@@ -131,7 +131,7 @@ export const Switch = ({
 
     switch (appliedTheme) {
       case 'brutalist':
-        thumbColor = isChecked ? "bg-primary rounded-none p-0" : "bg-white rounded-none p-0";
+        thumbColor = isChecked ? "bg-primary dark:bg-primary-dark rounded-none p-0" : "bg-background rounded-none p-0";
         break;
       case 'futuristic':
         thumbColor = "bg-primary shadow-[0_0_8px_rgba(255,255,255,0.6)]";
